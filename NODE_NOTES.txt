@@ -1,0 +1,514 @@
+Functions:
+const greet=(name){
+console.log("hi,${name}");
+}
+greet("venu");
+op:hi,venu
+
+setTimeout(to stop)
+setInterval(repeat)
+clearInterval[used to stop setInterval in setTimeout function()]
+
+
+=>modules
+const xyz=require('./people.js');
+consol.log(people);
+
+readStream,writeStream=>
+
+
+A ReadStream is used to read data from a file in small chunks.
+
+
+GET request: to get respose from server to web application (browser)
+
+POST request: to request the server from web application  ''
+
+CREATING A SERVER:
+const http=require('http');
+
+const server=http.createServer((req,res)=>{
+    console.log('request made');
+});
+
+server.listen(3000,'localhost',()=>
+{
+   console.log("listening for requests on port 3000")
+})
+
+
+*-  .createServer()
+*-  .listen()
+
+localhost:like a domain name on the web
+
+port number: like a doors into computer
+
+after console.log(req)+>> prints random in terminal
+
+
+ console.log(req.url,req.method)
+gives / GET in terminal
+/ url,GET method
+
+if we change to localhost:3000/about then /about GET
+
+
+ res.setHeader('Content-Type','text/html')
+->give data in tags
+we can send html page ,when we inspect we an see added html code
+
+
+*-> .write() is used to write in browser
+
+for returning html pages we need fs module
+   by fs.readFile we add html page
+
+res.write(data)
+res.end()
+
+or
+
+res.end(data)
+
+BASIC ROUTING:-
+
+firstly we take default path
+    let path='./views/';
+by using 'switch' we add routes
+like:
+switch(req.url){
+        case'/':
+            path+='index.html';
+            break;
+        case '/about':
+            path+='about.html';
+            break;
+        default:
+            path+='404.html';
+            break;
+    }
+ 
+In fs.readfile we just write as 'path' instead of 'path/index.html'
+      => fs.readFile(path,(err,data))
+
+STATUS CODES:-
+status codes describes the type of response sent to browser
+  200-Ok
+  301-resource moved
+  404-not found
+  500-internal server error
+
+100 range-informational responses
+200 range-success codes
+300 range-codes for redirects
+400 range-user or client error codes
+500 range-server error codes
+
+In SWITCH CASE we give status code
+by =>res.statusCode=200 or anything based on route
+
+REDIRECT:-
+If anybody visits the page which is not exists that should redirect to existed pages by
+
+case '/about-me':
+            res.statusCode=301;
+        res.setHeader('Location','/about')
+            res.end()
+            break;
+=> this is redirects to about page if any visted to about-me
+
+
+npm packages:lodash,nodemon
+
+NODEMON:
+nodemon automatically restarts your nodejs server when you save changes
+why:
+-edit code
+-run by node server
+--time waste
+
+we use 'nodemon server'
+ -edit file,save,serve restarts automatically
+
+for installing nodemon globally command is
+npm install -g nodemon
+
+npm init-> package.json list of all dependencies used in code
+
+LODASH:
+lodash is a js utility library
+ it makes coding easier an shorter
+ it provides ready-made functions for:
+arrays,objects,strings
+
+common functions:
+_.chunk()-spit array
+_.uniq()-remove duplicates
+_.merge()-combine results
+.once() = run the function only once, even
+.on()
+Runs every time event occurs event happens many times
+
+never delete node modules folder
+node_modules contains all installed packages (libraries)
+If deleted → dependencies are gone
+ just run npm intall in vscode
+
+EXPRESS:
+ Express.js is a Node.js framework used to build web applications and APIs easily
+
+app.get()
+  contains two arguments
+1->path(/,/about)
+2->function which is (req,res)
+this is solution to overcome the problem with switch ,cases in previous
+req: msg of request like get,post
+res:use to send response
+res.write("") & res.end() we use res.send()
+
+const express=require('express')
+//app is instant of express
+const app=express()
+//listens for request
+app.listen(3000)//we dont specify host,defaultly it takes localhost
+
+app.get('/',(req,res)=>{
+    res.send('<h1>WELCOME</h1>')
+})
+
+ROUTING & HTML:
+res.send('<h1>WELCOME</h1>')
+instead of using this we directy end html file by
+res.sendFile("./views/index.html",{root:__dirname})
+ 
+     =>root directory must given
+
+redirect with express:
+we use .redirect()
+ 
+for 404 file:
+we use .use() method
+after this we don't need server.js file
+
+VIEW ENGINES:
+EJS=embedded javascript(.ejs)
+
+app.set('view engine','ejs')
+we use:
+    .render() method instead of sendFile()
+
+MIDDLEWARE:
+code which runs(on server) between getting request and sending response
+ 
+app.use((req,res)=>{
+ console.log('new req made:');
+ console.log('host: ',req.hostname)
+ console.log('path:',req.path)
+ console.log('method:',req.method)
+})
+ by this we can see whaat happening in the server
+=>new req made:
+host:  localhost
+path: /about
+method: GET
+next() means:
+Move to the next middleware or route in the pipeline
+It controls the flow of the entire backend
+
+3rd party middleware:
+MORGAN
+const morgan=require('morgan')
+app.use(morgan('dev'))
+GET / 304 1.258 ms - -
+
+GET	   Request method
+/	   Route
+304	   Status code
+1.258 ms   Response time
+
+STATIC FILES:
+Static files = files served as-is by server
+No processing, no logic
+
+Server directly sends files
+no logic runs
+// serve static files
+=====>app.use(express.static("public"));
+ Express says:
+All files inside public → directly accessible
+
+ INTRO TO MANGODB:
+ 
+dvenukumar23_db_user Un
+ZnQLDQlS6eUFHsap mangoDB pw
+new user: venumad,venu123
+mongodb+srv://<db_username>:<db_password>@nodejs.kptyz27.mongodb.net/?appName=NODEjs
+Current IP Address (157.48.189.71/32) added!
+
+DB SETUP:
+1.create cluster
+2.after that go to collection and give db name,colletion name
+3.go to db access add new user un,pw
+4.go to clusters click connect
+  select connect to your collection
+  copy the uri
+5.open app.js in vscode
+6.make one var called dburi and paste uri there
+7.add un,pw of new user in the uri
+8.go to network access click add ip address
+
+MoNGOOSE:
+mongoose is a odm library[obj document mapping]
+
+Schema:
+A schema defines Structure of data in your database
+It tells MongoDB:
+what fields exist
+what type they are
+what rules they follow
+
+{ timestamps: true }means
+      Automatically adds 2 fields to
+      your document:
+        createdAt
+        updatedAt
+      eg: "createdAt":"2026-05-02T10:00:00.000Z",
+ "updatedAt":"2026-05-02T10:00:00.000Z"
+
+   Schema → defines structure
+   Model → uses that structure to talk to DB
+Model :
+ bridge b/w schema ,database
+
+ blog → model name
+blogschema → structure
+
+in uri at APPNAME give Db name
+always have new ip address
+and go to cluster ,refresh ,in doc you see the content
+
+_id
+69f833ffbd263d7112558254
+title
+"new skill"
+snippet
+"learning new skill"
+body
+"learning new skill is very important in this fast moving world"
+createdAt
+2026-05-04T05:51:59.695+00:00
+updatedAt
+2026-05-04T05:51:59.695+00:00
+__v
+   .find() is used to retrive all documents from the database
+
+REQUEST TYPES:
+ 
+GET = read
+POST = creates
+DELETE = remove
+PUT=update
+
+GET    /blogs      → fetch all blogs
+POST   /blogs      → create blog
+GET    /blogs/:id  → fetch one blog
+DELETE /blogs/:id  → delete blog
+
+
+POST:used to send data from client → server to create something
+
+
+REST:repesentational state transfer
+CRUD:create read update delete
+
+
+async is used because:
+many operations take time, and we don’t want the server to stop while waiting
+
+await is used to:
+wait for an async operation to finish before moving to next line
+wait until the finish of async
+
+Request comes
+ ↓
+blog.save() starts
+ ↓
+await → wait here
+ ↓ 
+DB saves data
+ ↓
+continue next line
+ ↓
+send response
+
+
+folders:models,controller,routes
+
+
+./	current folder - same folder
+../	parent folder  - go one folder back
+
+
+      *****ALWAYS CHECK FOR NEW IP ADDRESS*****
+
+
+for getting data from DB
+we don't need postman
+directly we get by using route
+
+for getting single document we use findById method
+for updating ,we use findByIdAndUpate 
+for deleting,we use findByIdAndDelete
+
+req.params.id:
+It gets the value from URL parameter
+
+req	request object
+params	URL parameters
+id	parameter name
+
+CRUD OPERATION FLOW:
+
+Request comes
+ ↓
+Route decides
+ ↓
+Controller runs
+ ↓
+Model talks to DB
+ ↓
+Response goes back
+
+POST (Create)
+Postman → Route → Controller → save() → DB
+
+GET (Read)
+Postman → Route → Controller → find() → DB → return data
+
+PATCH/PUT (Update)
+Postman → Route → Controller → findByIdAndUpdate()
+
+DELETE
+Postman → Route → Controller → findByIdAndDelete()
+
+
+eg:
+
+Customer (Postman)
+   ↓
+Waiter (Route)
+   ↓
+Chef (Controller)
+   ↓
+Kitchen Storage (DB)
+   ↓
+Chef
+   ↓
+Waiter
+   ↓
+Customer (Response)
+
+
+MVC Architecture:
+
+MVC is a way to Organize code cleanly
+Model-Data-Handles database,Defines schema/data structure
+View-UI-What user sees like react,ejs,html
+Controller-Logic-contains logic,Handles request & response
+
+Authentication:
+it is process of verifying the identity of user
+types:
+  1.stateful auth
+  2.stateless auth
+state->user data
+
+Stateful Authentication :
+
+Imagine this story
+You go to a school 
+Step 1:
+Teacher asks:“Are you a student?”
+You say:“Yes”
+
+Step 2:
+Teacher gives you a badge/card 
+This card = session ID
+
+Step 3:
+Next time you come:
+You just show the card:“See, I am already a student”
+Teacher remembers you 
+
+Same thing in computer:
+-User will login
+-Server gives ID (session) 
+-Browser saves that ID 
+Next time:
+-Browser sends that ID 
+Server says:"yes, this user already login”
+
+
+
+session:
+Step 1: Login
+You go to a website and login with your data.
+Server checks and says:“Okay, I will remember you”
+Step 2: Server creates session
+Server creates session = { user: Kittu }
+ This is stored in server memory
+
+
+cookie:
+cookie is a small piece of data that the browser stores.
+ It’s like a ticket given by the server.
+Step 1: 
+You go to website
+ Enter username/password
+Step 2: Server gives cookie
+ Server says:“Take this ticket ”
+             sessionId = abc123
+             Browser saves it
+ Step 3: Next time you visit
+Browser automatically sends cookie: sessionId = abc123
+Server checks:“Yes, this is Kittu”
+->Allows access
+
+npm i express-session
+npm i connect-mongodb-session
+
+JWT = JSON Web Token:
+A self-proof token given by server
+User carries it, server does NOT remember
+Login time
+You login.
+ Server checks and gives you:
+TOKEN = "abc123XYZ"
+ This is JWT
+ Next time You show token:
+Authorization: Bearer abc123XYZ
+ Server checks token:“Yes valid → allow”
+Server DOES NOT store anything
+ ->All info is inside token
+
+command:
+npm i jsonwebtoken 
+
+const jwt=require('jsonwebtoken ')
+
+BYCRPT:
+Next is bcrypt (password hashing)-this is mandatory in real authentication systems.
+  command:npm install bcryptjs
+const bcrypt=require('bcryptjs')
+
+app.post('/register',async(req,res)=>{
+
+   const {username,password}=req.body
+
+   const hashedPassword=
+      await bcrypt.hash(password,10)
+
+   console.log(hashedPassword)
+
+})
